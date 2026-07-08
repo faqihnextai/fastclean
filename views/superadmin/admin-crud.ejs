@@ -1,0 +1,68 @@
+<%- include('../partials/header') %>
+<div class="d-flex">
+    <div class="bg-dark text-white border-end" style="min-width: 250px; min-height: 100vh;">
+        <div class="sidebar-heading text-center py-4 text-warning fs-4 fw-bold">Super Admin</div>
+        <div class="list-group list-group-flush">
+            <a href="/superadmin/dashboard" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fa-solid fa-chart-line me-2"></i> Statistik Utama</a>
+            <a href="/superadmin/layanan-crud" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fa-solid fa-layer-group me-2"></i> Kelola Layanan</a>
+            <a href="/superadmin/admin-crud" class="list-group-item list-group-item-action bg-secondary text-white border-0"><i class="fa-solid fa-users-gear me-2"></i> Input Data Admin</a>
+            <a href="/logout" class="list-group-item list-group-item-action bg-dark text-danger border-0"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
+        </div>
+    </div>
+
+    <div class="container-fluid p-4 bg-light">
+        <h4 class="fw-bold mb-4">Kelola Data Admin / Pekerja Pembersih</h4>
+        
+        <div class="card border-0 shadow-sm p-4 mb-4">
+            <h5 class="fw-bold text-success mb-3">Daftarkan Admin Pekerja Baru</h5>
+            <form action="/superadmin/admin/create" method="POST">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <input type="text" name="nama" class="form-control" placeholder="Nama Lengkap Pekerja" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="email" name="email" class="form-control" placeholder="Email Akun Admin" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="password" name="password" class="form-control" placeholder="Password Akun" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-3 px-4 rounded-pill text-white">Daftarkan Pekerja</button>
+            </form>
+        </div>
+
+        <div class="card border-0 shadow-sm p-4">
+            <h5 class="fw-bold text-secondary mb-3">Daftar Admin / Pekerja Aktif</h5>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-success">
+                        <tr>
+                            <th>Nama Pekerja</th>
+                            <th>Email Akun</th>
+                            <th>Status</th>
+                            <th>Tanggal Bergabung</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(admins.length === 0) { %>
+                            <tr><td colspan="5" class="text-center text-muted">Belum ada data admin pekerja.</td></tr>
+                        <% } %>
+                        <% admins.forEach(admin => { %>
+                            <tr>
+                                <td class="fw-bold"><%= admin.nama %></td>
+                                <td><%= admin.email %></td>
+                                <td><span class="badge bg-success"><%= admin.status %></span></td>
+                                <td><%= new Date(admin.created_at).toLocaleDateString('id-ID') %></td>
+                                <td>
+                                    <a href="/superadmin/admin/delete/<%= admin.id %>" class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="return confirm('Hapus admin pekerja ini?')">Hapus</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,59 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex">
+    <%- include('../partials/sidebarUser') %>
+
+    <div class="container-fluid p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <div>
+                <h4 class="fw-bold text-secondary">Selamat Datang Kembali, <span class="text-primary"><%= user.nama %></span>!</h4>
+                <p class="text-muted small mb-0">Mari jaga kebersihan tempat tinggal Anda bersama FastClean.</p>
+            </div>
+            <span class="badge bg-primary px-3 py-2 rounded-pill">Status: Pelanggan</span>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-3 bg-white h-100">
+                    <div class="d-flex align-items-center">
+                        <div class="p-3 bg-light-primary text-primary rounded-3 me-3"><i class="fa-solid fa-calendar-week fa-2x"></i></div>
+                        <div>
+                            <h6 class="text-muted mb-1">Order Minggu Ini</h6>
+                            <h3 class="fw-bold mb-0">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-3 bg-white h-100">
+                    <div class="d-flex align-items-center">
+                        <div class="p-3 bg-light text-warning rounded-3 me-3"><i class="fa-solid fa-spinner fa-2x fa-spin"></i></div>
+                        <div>
+                            <h6 class="text-muted mb-1">Layanan Berjalan</h6>
+                            <h3 class="fw-bold mb-0">Belum Ada</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-3 bg-white h-100">
+                    <div class="d-flex align-items-center">
+                        <div class="p-3 bg-light text-success rounded-3 me-3"><i class="fa-solid fa-star fa-2x"></i></div>
+                        <div>
+                            <h6 class="text-muted mb-1">Rating Terakhir Anda</h6>
+                            <h3 class="fw-bold mb-0">- / 5</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm p-4">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-handshake-angle me-2 text-primary"></i>Butuh Pembersihan Cepat?</h5>
+            <p class="text-muted">Pilih paket layanan terbaik dari kami yang disesuaikan dengan kebutuhan ruangan Anda.</p>
+            <a href="/user/layanan" class="btn btn-primary px-4 py-2 rounded-pill w-25">Lihat Semua Layanan</a>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

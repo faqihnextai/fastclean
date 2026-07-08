@@ -1,0 +1,66 @@
+<%- include('../partials/header') %>
+<div class="d-flex">
+    <div class="bg-dark text-white border-end" style="min-width: 250px; min-height: 100vh;">
+        <div class="sidebar-heading text-center py-4 text-warning fs-4 fw-bold">Super Admin</div>
+        <div class="list-group list-group-flush">
+            <a href="/superadmin/dashboard" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fa-solid fa-chart-line me-2"></i> Statistik Utama</a>
+            <a href="/superadmin/layanan-crud" class="list-group-item list-group-item-action bg-secondary text-white border-0"><i class="fa-solid fa-layer-group me-2"></i> Kelola Layanan</a>
+            <a href="/superadmin/admin-crud" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fa-solid fa-users-gear me-2"></i> Input Data Admin</a>
+            <a href="/logout" class="list-group-item list-group-item-action bg-dark text-danger border-0"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
+        </div>
+    </div>
+
+    <div class="container-fluid p-4 bg-light">
+        <h4 class="fw-bold mb-4">Kelola Jenis Layanan Kebersihan</h4>
+        
+        <div class="card border-0 shadow-sm p-4 mb-4">
+            <h5 class="fw-bold text-primary mb-3">Tambah Layanan Baru</h5>
+            <form action="/superadmin/layanan/create" method="POST">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <input type="text" name="nama_layanan" class="form-control" placeholder="Nama Layanan (misal: Deep Cleaning)" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" name="harga" class="form-control" placeholder="Harga (Rupiah)" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" name="deskripsi" class="form-control" placeholder="Deskripsi Singkat Layanan" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3 px-4 rounded-pill">Simpan Layanan</button>
+            </form>
+        </div>
+
+        <div class="card border-0 shadow-sm p-4">
+            <h5 class="fw-bold text-secondary mb-3">Daftar Layanan Tersedia</h5>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nama Layanan</th>
+                            <th>Deskripsi</th>
+                            <th>Harga</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(services.length === 0) { %>
+                            <tr><td colspan="4" class="text-center text-muted">Belum ada layanan. Silakan tambahkan di atas.</td></tr>
+                        <% } %>
+                        <% services.forEach(service => { %>
+                            <tr>
+                                <td class="fw-bold"><%= service.nama_layanan %></td>
+                                <td><%= service.deskripsi %></td>
+                                <td>Rp <%= Number(service.harga).toLocaleString('id-ID') %></td>
+                                sizeof<td>
+                                    <a href="/superadmin/layanan/delete/<%= service.id %>" class="btn btn-sm btn-danger rounded-pill px-3" onclick="return confirm('Hapus layanan ini?')">Hapus</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') %>

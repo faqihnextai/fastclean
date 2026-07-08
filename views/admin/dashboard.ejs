@@ -1,0 +1,85 @@
+<%- include('../partials/header') %>
+<div class="d-flex">
+    <%- include('../partials/sidebarAdmin') %>
+
+    <div class="container-fluid p-4 bg-light">
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <div>
+                <h4 class="fw-bold text-dark">Dashboard Pekerja: <span class="text-warning"><%= user.nama %></span></h4>
+                <p class="text-muted small mb-0">Kelola orderan kebersihan dan pantau lembar pendapatan Anda.</p>
+            </div>
+            <div class="text-end">
+                <span class="badge bg-dark text-warning px-3 py-2 rounded-pill fs-6">
+                    Total Pendapatan: Rp <%= Number(pendapatan).toLocaleString('id-ID') %>
+                </span>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm p-4 mb-4">
+            <h5 class="fw-bold text-info mb-3"><i class="fa-solid fa-spray-can-sparkles me-2"></i>Tugas Aktif Anda (Sedang Dikerjakan)</h5>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-info text-white">
+                        <tr>
+                            <th>Layanan</th>
+                            <th>Pelanggan</th>
+                            <th>Kontak</th>
+                            <th>Tanggal Tugas</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(myProgressOrders.length === 0) { %>
+                            <tr><td colspan="5" class="text-center text-muted">Tidak ada tugas aktif. Silakan ambil orderan masuk di bawah.</td></tr>
+                        <% } %>
+                        <% myProgressOrders.forEach(order => { %>
+                            <tr>
+                                <td class="fw-bold"><%= order.nama_layanan %></td>
+                                <td><%= order.nama_pelanggan %></td>
+                                <td><a href="https://wa.me/<%= order.telepon %>" target="_blank" class="btn btn-sm btn-success rounded-pill px-2"><i class="fa-brands fa-whatsapp me-1"></i> Hubungi</a></td>
+                                <td><%= new Date(order.tanggal_booking).toLocaleDateString('id-ID') %></td>
+                                <td>
+                                    <a href="/admin/complete-order/<%= order.id %>" class="btn btn-sm btn-success rounded-pill px-3" onclick="return confirm('Konfirmasi bahwa pembersihan telah selesai dilakukan?')">Selesaikan Tugas</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm p-4">
+            <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-bell-concierge me-2"></i>Antrean Orderan Masuk (Pending)</h5>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Jenis Layanan</th>
+                            <th>Nama Pelanggan</th>
+                            <th>Tanggal Kerja</th>
+                            <th>Upah Orderan</th>
+                            <th>Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(pendingOrders.length === 0) { %>
+                            <tr><td colspan="5" class="text-center text-muted">Belum ada orderan masuk dari pelanggan.</td></tr>
+                        <% } %>
+                        <% pendingOrders.forEach(order => { %>
+                            <tr>
+                                <td class="fw-bold"><%= order.nama_layanan %></td>
+                                <td><%= order.nama_pelanggan %></td>
+                                <td><%= new Date(order.tanggal_booking).toLocaleDateString('id-ID') %></td>
+                                <td class="fw-bold text-success">Rp <%= Number(order.total_harga).toLocaleString('id-ID') %></td>
+                                <td>
+                                    <a href="/admin/take-order/<%= order.id %>" class="btn btn-sm btn-primary rounded-pill px-3">Ambil Tugas</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,28 @@
+const mysql = require('mysql2');
+require('dotenv').config();
+
+// Membuat pool koneksi ke MySQL
+const pool = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    waitForConnections: true,
+    connectionLimit: 10, // Maksimal 10 koneksi stand-by sekaligus
+    queueLimit: 0
+});
+
+// Mengubah pool menjadi format promise agar kita bisa menggunakan async/await nanti
+const db = pool.promise();
+
+// Cek koneksi ke database saat aplikasi pertama kali dijalankan
+pool.getConnection((err, connection) => {
+    if (err) {
+        console.error('Database FastClean Gagal Terhubung:', err.message);
+    } else {
+        console.log('Database FastClean Berhasil Terhubung ke MySQL!');
+        connection.release(); // Kembalikan koneksi ke pool
+    }
+});
+
+module.exports = db;

@@ -1,0 +1,58 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex">
+    <%- include('../partials/sidebarUser') %>
+
+    <div class="container-fluid p-4 bg-light">
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <div>
+                <h4 class="fw-bold text-dark">Riwayat Pembelian</h4>
+                <p class="text-muted small mb-0">Daftar seluruh layanan kebersihan Anda yang telah selesai dikerjakan.</p>
+            </div>
+            <span class="badge bg-success px-3 py-2 rounded-pill"><i class="fa-solid fa-clock-rotate-left me-1"></i> Arsip Transaksi</span>
+        </div>
+
+        <div class="card border-0 shadow-sm p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Jenis Layanan</th>
+                            <th>Tanggal Pengerjaan</th>
+                            <th>Total Pembayaran</th>
+                            <th>Pekerja Pembersih</th>
+                            <th>Status Layanan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (orders.length === 0) { %>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">
+                                    <i class="fa-solid fa-folder-open fa-2x mb-2 d-block"></i>
+                                    Belum ada riwayat pesanan yang selesai.
+                                </td>
+                            </tr>
+                        <% } %>
+                        <% orders.forEach(order => { %>
+                            <tr>
+                                <td class="fw-bold text-secondary"><%= order.nama_layanan %></td>
+                                <td><%= new Date(order.tanggal_booking).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) %></td>
+                                <td class="fw-bold text-success">Rp <%= Number(order.total_harga).toLocaleString('id-ID') %></td>
+                                <td>
+                                    <span class="fw-semibold"><%= order.nama_pekerja ? order.nama_pekerja : '-' %></span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success px-3 py-2 rounded-pill">
+                                        <i class="fa-solid fa-circle-check me-1"></i> Selesai
+                                    </span>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

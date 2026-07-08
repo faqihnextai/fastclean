@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 85vh; margin-top: 100px;">
+    <div class="card shadow-sm p-4 border-0" style="width: 100%; max-width: 500px;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary"><i class="fa-solid fa-broom me-2"></i>FastClean</h2>
+            <p class="text-muted">Buat akun pelanggan baru Anda</p>
+        </div>
+        
+        <form action="/register" method="POST">
+            <div class="mb-3">
+                <label for="nama" class="form-label fw-semibold">Nama Lengkap</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-user text-muted"></i></span>
+                    <input type="text" name="nama" id="nama" class="form-control border-start-0" placeholder="Masukkan nama lengkap" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label fw-semibold">Alamat Email</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-envelope text-muted"></i></span>
+                    <input type="email" name="email" id="email" class="form-control border-start-0" placeholder="nama@email.com" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="telepon" class="form-label fw-semibold">Nomor Telepon / WhatsApp</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-phone text-muted"></i></span>
+                    <input type="tel" name="telepon" id="telepon" class="form-control border-start-0" placeholder="08xxxxxxxxxx" required>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="password" class="form-label fw-semibold">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-lock text-muted"></i></span>
+                    <input type="password" name="password" id="password" class="form-control border-start-0" placeholder="Minimal 6 karakter" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 fw-bold py-2 rounded-pill shadow-sm mt-3 text-white">Daftar Akun</button>
+        </form>
+
+        <div class="text-center mt-4">
+            <p class="text-muted small">Sudah memiliki akun? <a href="/login" class="text-decoration-none fw-bold">Masuk di sini</a></p>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

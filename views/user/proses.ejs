@@ -1,0 +1,47 @@
+<%- include('../partials/header') %>
+<div class="d-flex">
+    <%- include('../partials/sidebarUser') %>
+
+    <div class="container-fluid p-4 bg-light">
+        <h4 class="fw-bold mb-4">Layanan Sedang Berjalan</h4>
+
+        <div class="card border-0 shadow-sm p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Jenis Layanan</th>
+                            <th>Tanggal Booking</th>
+                            <th>Total Biaya</th>
+                            <th>Nama Pekerja</th>
+                            <th>Status Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (orders.length === 0) { %>
+                            <tr><td colspan="5" class="text-center text-muted py-4">Tidak ada layanan aktif saat ini. Yuk pesan di menu Layanan!</td></tr>
+                        <% } %>
+                        <% orders.forEach(order => { %>
+                            <tr>
+                                <td class="fw-bold text-secondary"><%= order.nama_layanan %></td>
+                                <td><%= new Date(order.tanggal_booking).toLocaleDateString('id-ID') %></td>
+                                <td class="fw-bold text-dark">Rp <%= Number(order.total_harga).toLocaleString('id-ID') %></td>
+                                <td>
+                                    <span class="text-muted"><%= order.nama_pekerja ? order.nama_pekerja : 'Mencari Tim Pekerja...' %></span>
+                                </td>
+                                <td>
+                                    <% if (order.status === 'pending') { %>
+                                        <span class="badge bg-warning text-dark px-3 py-2 rounded-pill"><i class="fa-solid fa-hourglass-start me-1"></i> Menunggu Konfirmasi</span>
+                                    <% } else if (order.status === 'proses') { %>
+                                        <span class="badge bg-info text-white px-3 py-2 rounded-pill"><i class="fa-solid fa-spray-can-sparkles fa-spin me-1"></i> Sedang Dibersihkan</span>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') %>

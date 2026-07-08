@@ -1,0 +1,57 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex">
+    <div class="bg-dark text-white border-end" id="sidebar-wrapper" style="min-width: 250px; min-height: 100vh;">
+        <div class="sidebar-heading text-center py-4 text-warning fs-4 fw-bold">Super Admin</div>
+        <div class="list-group list-group-flush">
+            <a href="/superadmin/dashboard" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fa-solid fa-chart-line me-2"></i> Statistik Utama</a>
+            <a href="/superadmin/layanan-crud" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fa-solid fa-layer-group me-2"></i> Kelola Layanan</a>
+            <a href="/superadmin/admin-crud" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fa-solid fa-users-gear me-2"></i> Input Data Admin</a>
+            <a href="/logout" class="list-group-item list-group-item-action bg-dark text-danger border-0"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
+        </div>
+    </div>
+
+    <div class="container-fluid p-4 bg-light">
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <div>
+                <h4 class="fw-bold text-dark">Panel Kontrol Sistem</h4>
+                <p class="text-muted small mb-0">Halo, <strong><%= user.nama %></strong>. Anda masuk sebagai pengendali utama.</p>
+            </div>
+            <span class="badge bg-danger px-3 py-2 rounded-pill">Akses: Superadmin</span>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm p-3 text-white bg-primary">
+                    <h6 class="mb-1 text-white-50">Total Pelanggan</h6>
+                    <h2 class="fw-bold mb-0">Mengecek...</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm p-3 text-white bg-success">
+                    <h6 class="mb-1 text-white-50">Total Admin/Pekerja</h6>
+                    <h2 class="fw-bold mb-0">Mengecek...</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm p-3 text-white bg-warning text-dark">
+                    <h6 class="mb-1 text-dark-50">Total Jenis Layanan</h6>
+                    <h2 class="fw-bold mb-0">Mengecek...</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm p-3 text-white bg-info">
+                    <h6 class="mb-1 text-white-50">Total Pendapatan</h6>
+                    <h2 class="fw-bold mb-0">Rp 0</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm p-4">
+            <h5 class="fw-bold mb-3 text-secondary"><i class="fa-solid fa-gears me-2"></i>Log Aktivitas Sistem</h5>
+            <p class="text-muted small">Semua sistem FastClean berjalan dengan normal dan terhubung ke database MySQL.</p>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

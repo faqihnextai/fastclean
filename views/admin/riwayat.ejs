@@ -1,0 +1,41 @@
+<%- include('../partials/header') %>
+<div class="d-flex">
+    <%- include('../partials/sidebarAdmin') %>
+
+    <div class="container-fluid p-4 bg-light">
+        <h4 class="fw-bold mb-4">Riwayat Pekerjaan Selesai</h4>
+
+        <div class="card border-0 shadow-sm p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Jenis Layanan</th>
+                            <th>Nama Pelanggan</th>
+                            <th>Tanggal Pengerjaan</th>
+                            <th>Pendapatan Masuk</th>
+                            <th>Status Kerja</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(completedOrders.length === 0) { %>
+                            <tr><td colspan="5" class="text-center text-muted py-4">Anda belum menyelesaikan pekerjaan apa pun.</td></tr>
+                        <% } %>
+                        <% completedOrders.forEach(order => { %>
+                            <tr>
+                                <td class="fw-bold text-secondary"><%= order.nama_layanan %></td>
+                                <td><%= order.nama_pelanggan %></td>
+                                <td><%= new Date(order.tanggal_booking).toLocaleDateString('id-ID') %></td>
+                                <td class="fw-bold text-success">Rp <%= Number(order.total_harga).toLocaleString('id-ID') %></td>
+                                <td>
+                                    <span class="badge bg-success px-3 py-2 rounded-pill"><i class="fa-solid fa-circle-check me-1"></i> Berhasil Dibereskan</span>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') %>

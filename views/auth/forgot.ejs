@@ -1,0 +1,26 @@
+<%- include('../partials/header') %>
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 75vh; margin-top: 100px;">
+    <div class="card shadow-sm p-4 border-0" style="width: 100%; max-width: 450px;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary"><i class="fa-solid fa-broom me-2"></i>FastClean</h2>
+            <h4 class="fw-bold mt-2">Lupa Password?</h4>
+            <p class="text-muted small">Masukkan email Anda yang terdaftar, kami akan mengirimkan instruksi pemulihan.</p>
+        </div>
+        
+        <form action="/forgot" method="POST">
+            <div class="mb-4">
+                <label for="email" class="form-label fw-semibold">Alamat Email Anda</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-envelope text-muted"></i></span>
+                    <input type="email" name="email" id="email" class="form-control border-start-0" placeholder="nama@email.com" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 fw-bold py-2 rounded-pill shadow-sm mb-3">Kirim Link Pemulihan</button>
+            <a href="/login" class="btn btn-outline-secondary w-100 fw-bold py-2 rounded-pill">Batal</a>
+        </form>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

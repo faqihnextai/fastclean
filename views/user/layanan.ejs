@@ -1,0 +1,58 @@
+<%- include('../partials/header') %>
+<div class="d-flex">
+    <%- include('../partials/sidebarUser') %>
+
+    <div class="container-fluid p-4 bg-light">
+        <h4 class="fw-bold mb-1">Pilih Layanan Bersih-Bersih</h4>
+        <p class="text-muted small mb-4">Tentukan jenis perawatan kebersihan sesuai kebutuhan tempat tinggal Anda.</p>
+
+        <div class="row g-4">
+            <% if (services.length === 0) { %>
+                <div class="col-12 text-center py-5 text-muted">Belum ada layanan yang tersedia saat ini.</div>
+            <% } %>
+            <% services.forEach(service => { %>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100 p-3">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold text-primary mb-2"><%= service.nama_layanan %></h5>
+                            <p class="card-text text-muted small flex-grow-1"><%= service.deskripsi %></p>
+                            <h4 class="fw-bold text-dark mt-3 mb-4">Rp <%= Number(service.harga).toLocaleString('id-ID') %></h4>
+                            
+                            <button class="btn btn-primary w-100 rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#bookingModal<%= service.id %>">Pesan Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="bookingModal<%= service.id %>" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content border-0 shadow">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title fw-bold">Konfirmasi Pemesanan</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-shadow="none" data-bs-dismiss="modal"></button>
+                            </div>
+                            <form action="/user/booking" method="POST">
+                                <div class="modal-body">
+                                    <p class="mb-1 text-muted small">Layanan Terpilih:</p>
+                                    <h5 class="fw-bold text-dark"><%= service.nama_layanan %></h5>
+                                    <hr>
+                                    <input type="hidden" name="service_id" value="<%= service.id %>">
+                                    <input type="hidden" name="total_harga" value="<%= service.harga %>">
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">Pilih Tanggal Pengerjaan</label>
+                                        <input type="date" name="tanggal_booking" class="form-control" required min="<%= new Date().toISOString().split('T')[0] %>">
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-light">
+                                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-primary rounded-pill px-4 text-white fw-bold">Konfirmasi Pembelian</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') %>
