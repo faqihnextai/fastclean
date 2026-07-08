@@ -8,8 +8,9 @@ const pool = mysql.createPool({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     waitForConnections: true,
-    connectionLimit: 10, // Maksimal 10 koneksi stand-by sekaligus
-    queueLimit: 0
+    connectionLimit: 3, // Perkecil untuk serverless
+    queueLimit: 0,
+    connectTimeout: 10000 // Batas waktu tunggu koneksi 10 detik
 });
 
 // Mengubah pool menjadi format promise agar kita bisa menggunakan async/await nanti
