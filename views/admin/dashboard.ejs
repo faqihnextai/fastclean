@@ -1,45 +1,79 @@
 <%- include('../partials/header') %>
-<div class="d-flex">
+
+<div class="container-fluid p-0 d-flex flex-column flex-lg-row custom-dashboard-wrapper">
+    <!-- Komponen Sidebar Admin Responsif -->
     <%- include('../partials/sidebarAdmin') %>
 
-    <div class="container-fluid p-4 bg-light">
-        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+    <!-- Area Konten Utama Panel -->
+    <main class="flex-grow-1 p-3 p-md-4 main-panel-content">
+        
+        <!-- Header Judul Halaman -->
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 pb-2 border-bottom gap-2">
             <div>
-                <h4 class="fw-bold text-dark">Dashboard Pekerja: <span class="text-warning"><%= user.nama %></span></h4>
-                <p class="text-muted small mb-0">Kelola orderan kebersihan dan pantau lembar pendapatan Anda.</p>
+                <h4 class="fw-bold text-dark mb-1">Dashboard Pekerja: <span class="text-cobalt"><%= user.nama %></span></h4>
+                <p class="text-muted small mb-0 body-text">Kelola antrean masuk serta pantau lembar pendapatan operasional Anda.</p>
             </div>
             <div class="text-end">
-                <span class="badge bg-dark text-warning px-3 py-2 rounded-pill fs-6">
+                <span class="badge bg-light-blue text-cobalt border border-primary px-3 py-2 ui-label-caps fs-7">
                     Total Pendapatan: Rp <%= Number(pendapatan).toLocaleString('id-ID') %>
                 </span>
             </div>
         </div>
 
-        <div class="card border-0 shadow-sm p-4 mb-4">
-            <h5 class="fw-bold text-info mb-3"><i class="fa-solid fa-spray-can-sparkles me-2"></i>Tugas Aktif Anda (Sedang Dikerjakan)</h5>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-info text-white">
-                        <tr>
-                            <th>Layanan</th>
-                            <th>Pelanggan</th>
-                            <th>Kontak</th>
-                            <th>Tanggal Tugas</th>
-                            <th>Aksi</th>
+        <!-- SEKSI 1: Tugas Aktif / Sedang Dikerjakan -->
+        <div class="card border-0 shadow-sm p-3 p-md-4 custom-card card-green mb-4">
+            <h5 class="fw-bold text-olive mb-1"><i class="fa-solid fa-spray-can-sparkles me-2"></i>Tugas Aktif Anda</h5>
+            <div class="ornamental-divider my-2 ms-0"></div>
+            
+            <div class="table-responsive custom-responsive-table mt-2">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr class="table-light border-bottom">
+                            <th class="py-3 ui-label-caps text-cobalt">Layanan</th>
+                            <th class="py-3 ui-label-caps text-cobalt">Pelanggan</th>
+                            <th class="py-3 ui-label-caps text-cobalt">Kontak</th>
+                            <th class="py-3 ui-label-caps text-cobalt">Foto Before</th>
+                            <th class="py-3 ui-label-caps text-cobalt">Tanggal Tugas</th>
+                            <th class="py-3 ui-label-caps text-cobalt text-end">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% if(myProgressOrders.length === 0) { %>
-                            <tr><td colspan="5" class="text-center text-muted">Tidak ada tugas aktif. Silakan ambil orderan masuk di bawah.</td></tr>
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-4 small body-text">
+                                    Tidak ada tugas aktif berjalan. Silakan ambil antrean orderan di bawah.
+                                </td>
+                            </tr>
                         <% } %>
                         <% myProgressOrders.forEach(order => { %>
-                            <tr>
-                                <td class="fw-bold"><%= order.nama_layanan %></td>
+                            <tr class="border-bottom-0">
+                                <td class="fw-bold text-dark"><%= order.nama_layanan %></td>
                                 <td><%= order.nama_pelanggan %></td>
-                                <td><a href="https://wa.me/<%= order.telepon %>" target="_blank" class="btn btn-sm btn-success rounded-pill px-2"><i class="fa-brands fa-whatsapp me-1"></i> Hubungi</a></td>
-                                <td><%= new Date(order.tanggal_booking).toLocaleDateString('id-ID') %></td>
                                 <td>
-                                    <a href="/admin/complete-order/<%= order.id %>" class="btn btn-sm btn-success rounded-pill px-3" onclick="return confirm('Konfirmasi bahwa pembersihan telah selesai dilakukan?')">Selesaikan Tugas</a>
+                                    <a href="https://wa.me/<%= order.telepon %>" target="_blank" class="btn btn-secondary-custom py-1 px-3 btn-sm">
+                                        <i class="fa-brands fa-whatsapp me-1"></i> Hubungi
+                                    </a>
+                                </td>
+                                <td>
+                                    <% if(order.foto_before) { %>
+                                        <a href="/uploads/<%= order.foto_before %>" target="_blank" class="btn btn-sm btn-outline-secondary py-1 px-2 fs-7">
+                                            <i class="fa-solid fa-image me-1"></i> Lihat Foto
+                                        </a>
+                                    <% } else { %>
+                                        <span class="text-muted small">-</span>
+                                    <% } %>
+                                </td>
+                                <td><%= new Date(order.tanggal_booking).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) %></td>
+                                <td class="text-end">
+                                    <!-- PERBAIKAN: Menggunakan Form POST untuk Selesaikan Tugas & Upload Foto After -->
+                                    <form action="/admin/complete-order/<%= order.id %>" method="POST" enctype="multipart/form-data" class="d-flex align-items-center gap-2 justify-content-end" onsubmit="return confirm('Konfirmasi bahwa pembersihan telah selesai dilakukan?')">
+                                        <div class="position-relative">
+                                            <input type="file" name="foto_after" class="form-control form-control-sm" required style="max-width: 170px;">
+                                        </div>
+                                        <button type="submit" class="btn btn-success-custom py-1 px-3 btn-sm text-white text-nowrap">
+                                            Selesaikan Tugas
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         <% }) %>
@@ -48,31 +82,46 @@
             </div>
         </div>
 
-        <div class="card border-0 shadow-sm p-4">
-            <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-bell-concierge me-2"></i>Antrean Orderan Masuk (Pending)</h5>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Jenis Layanan</th>
-                            <th>Nama Pelanggan</th>
-                            <th>Tanggal Kerja</th>
-                            <th>Upah Orderan</th>
-                            <th>Tindakan</th>
+        <!-- SEKSI 2: Antrean Orderan Masuk (Pending) -->
+        <div class="card border-0 shadow-sm p-3 p-md-4 custom-card card-blue">
+            <h5 class="fw-bold text-cobalt mb-1"><i class="fa-solid fa-bell-concierge me-2"></i>Antrean Orderan Masuk (Pending)</h5>
+            <div class="ornamental-divider my-2 ms-0"></div>
+            
+            <div class="table-responsive custom-responsive-table mt-2">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr class="table-light border-bottom">
+                            <th class="py-3 ui-label-caps text-cobalt">Jenis Layanan</th>
+                            <th class="py-3 ui-label-caps text-cobalt">Nama Pelanggan</th>
+                            <th class="py-3 ui-label-caps text-cobalt">Tanggal Kerja</th>
+                            <th class="py-3 ui-label-caps text-cobalt">Upah Orderan</th>
+                            <th class="py-3 ui-label-caps text-cobalt text-end">Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% if(pendingOrders.length === 0) { %>
-                            <tr><td colspan="5" class="text-center text-muted">Belum ada orderan masuk dari pelanggan.</td></tr>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4 small body-text">
+                                    Belum ada antrean orderan masuk dari pelanggan saat ini.
+                                </td>
+                            </tr>
                         <% } %>
                         <% pendingOrders.forEach(order => { %>
-                            <tr>
-                                <td class="fw-bold"><%= order.nama_layanan %></td>
+                            <tr class="border-bottom-0">
+                                <td class="fw-bold text-dark"><%= order.nama_layanan %></td>
                                 <td><%= order.nama_pelanggan %></td>
-                                <td><%= new Date(order.tanggal_booking).toLocaleDateString('id-ID') %></td>
-                                <td class="fw-bold text-success">Rp <%= Number(order.total_harga).toLocaleString('id-ID') %></td>
-                                <td>
-                                    <a href="/admin/take-order/<%= order.id %>" class="btn btn-sm btn-primary rounded-pill px-3">Ambil Tugas</a>
+                                <td><%= new Date(order.tanggal_booking).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) %></td>
+                                <td class="fw-bold text-olive">Rp <%= Number(order.total_harga).toLocaleString('id-ID') %></td>
+                                <td class="text-end">
+                                    <!-- PERBAIKAN: Menggunakan Form POST untuk Ambil Tugas & Upload Foto Before -->
+                                    <form action="/admin/take-order/<%= order.id %>" method="POST" enctype="multipart/form-data" class="d-flex align-items-center gap-2 justify-content-end">
+                                        <div class="position-relative">
+                                            <input type="file" name="foto_before" class="form-control form-control-sm" required style="max-width: 170px;">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary-custom py-1 px-3 btn-sm text-nowrap">
+                                            Ambil Tugas
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         <% }) %>
@@ -80,6 +129,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </main>
 </div>
+
 <%- include('../partials/footer') %>

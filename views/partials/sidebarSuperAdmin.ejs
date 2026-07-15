@@ -1,0 +1,33 @@
+<!-- Tombol Hamburger Mobile (Hanya muncul di HP / Layar < 992px) -->
+<div class="d-lg-none p-3 bg-white border-bottom w-100 d-flex justify-content-between align-items-center fixed-top shadow-sm custom-mobile-nav">
+    <a class="fw-bold text-cobalt text-decoration-none fs-4" href="#">
+        <i class="fa-solid fa-broom me-2 text-olive"></i>FastClean
+    </a>
+    <button class="btn btn-outline-primary border-2 toggle-hamburger-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar-super-wrapper" aria-controls="sidebar-super-wrapper">
+        <i class="fa-solid fa-bars-staggered"></i>
+    </button>
+</div>
+
+<!-- Container Sidebar Super Admin (z-index: 100) -->
+<div class="offcanvas-lg offcanvas-start bg-light border-end custom-sidebar-container" tabindex="-1" id="sidebar-super-wrapper" aria-labelledby="sidebar-super-label">
+    <div class="offcanvas-header border-bottom d-lg-none bg-white">
+        <h5 class="offcanvas-title fw-bold text-cobalt" id="sidebar-super-label">
+            <i class="fa-solid fa-shield-halved me-2 text-olive"></i>Super Admin
+        </h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" data-bs-target="#sidebar-super-wrapper" aria-label="Close"></button>
+    </div>
+    
+    <div class="sidebar-sticky-content">
+        <div class="sidebar-heading text-center py-4 text-cobalt fs-4 fw-bold border-bottom d-none d-lg-block">
+            <i class="fa-solid fa-toolbox me-2 text-olive"></i>Super Admin
+        </div>
+        
+        <div class="list-group list-group-flush p-2">
+            <a href="/superadmin/dashboard" class="list-group-item list-group-item-action my-1 rounded-2"><i class="fa-solid fa-chart-line me-2"></i> Statistik Utama</a>
+            <a href="/superadmin/layanan-crud" class="list-group-item list-group-item-action my-1 rounded-2"><i class="fa-solid fa-layer-group me-2"></i> Kelola Layanan</a>
+            <a href="/superadmin/admin-crud" class="list-group-item list-group-item-action my-1 rounded-2"><i class="fa-solid fa-users-gear me-2"></i> Input Data Admin</a>
+            <hr class="my-2 opacity-25">
+            <a href="/logout" class="list-group-item list-group-item-action my-1 rounded-2 text-danger fw-semibold"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
+        </div>
+    </div>
+</div>

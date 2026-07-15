@@ -1,59 +1,92 @@
 <%- include('../partials/header') %>
 
-<div class="d-flex">
+<div class="container-fluid p-0 d-flex flex-column flex-lg-row custom-dashboard-wrapper">
+    <!-- Komponen Sidebar Responsif -->
     <%- include('../partials/sidebarUser') %>
 
-    <div class="container-fluid p-4">
-        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+    <!-- Area Konten Utama Panel -->
+    <main class="flex-grow-1 p-3 p-md-4 main-panel-content">
+        
+        <!-- Header Judul Halaman -->
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 pb-2 border-bottom gap-2">
             <div>
-                <h4 class="fw-bold text-secondary">Selamat Datang Kembali, <span class="text-primary"><%= user.nama %></span>!</h4>
-                <p class="text-muted small mb-0">Mari jaga kebersihan tempat tinggal Anda bersama FastClean.</p>
+                <h4 class="fw-bold text-dark mb-1">
+                    Selamat Datang Kembali, <span class="text-cobalt"><%= user.nama %></span>!
+                </h4>
+                <p class="text-muted small mb-0 body-text">Mari jaga kebersihan dan kenyamanan tempat tinggal Anda bersama FastClean.</p>
             </div>
-            <span class="badge bg-primary px-3 py-2 rounded-pill">Status: Pelanggan</span>
+            <span class="badge bg-blue-custom px-3 py-2 ui-label-caps"><i class="fa-solid fa-user-check me-1"></i> Status: Pelanggan</span>
         </div>
 
+        <!-- Baris Kartu Informasi Status (Asymmetric Grid) -->
         <div class="row g-3 mb-4">
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm p-3 bg-white h-100">
+            <!-- Kartu 1: Order Minggu Ini (Aksen Biru) -->
+            <div class="col-md-4 col-sm-6">
+                <div class="custom-card card-blue p-3 h-100">
                     <div class="d-flex align-items-center">
-                        <div class="p-3 bg-light-primary text-primary rounded-3 me-3"><i class="fa-solid fa-calendar-week fa-2x"></i></div>
+                        <div class="p-3 bg-light-blue text-cobalt rounded-2 me-3">
+                            <i class="fa-solid fa-calendar-week fa-2x"></i>
+                        </div>
                         <div>
-                            <h6 class="text-muted mb-1">Order Minggu Ini</h6>
-                            <h3 class="fw-bold mb-0">0</h3>
+                            <h6 class="text-muted mb-1 small ui-label-caps">Order Minggu Ini</h6>
+                            <h3 class="fw-bold text-dark mb-0">0</h3>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm p-3 bg-white h-100">
+
+            <!-- Kartu 2: Layanan Berjalan (Aksen Emas/Kuning Peringatan) -->
+            <div class="col-md-4 col-sm-6">
+                <div class="custom-card card-gold p-3 h-100">
                     <div class="d-flex align-items-center">
-                        <div class="p-3 bg-light text-warning rounded-3 me-3"><i class="fa-solid fa-spinner fa-2x fa-spin"></i></div>
+                        <div class="p-3 bg-light-gold text-gold rounded-2 me-3">
+                            <i class="fa-solid fa-spinner fa-2x fa-spin"></i>
+                        </div>
                         <div>
-                            <h6 class="text-muted mb-1">Layanan Berjalan</h6>
-                            <h3 class="fw-bold mb-0">Belum Ada</h3>
+                            <h6 class="text-muted mb-1 small ui-label-caps">Layanan Aktif</h6>
+                            <h3 class="fw-bold text-dark mb-0 fs-5 text-truncate">Belum Ada</h3>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm p-3 bg-white h-100">
+
+            <!-- Kartu 3: Rating (Aksen Hijau Zaitun) -->
+            <div class="col-md-4 col-12">
+                <div class="custom-card card-green p-3 h-100">
                     <div class="d-flex align-items-center">
-                        <div class="p-3 bg-light text-success rounded-3 me-3"><i class="fa-solid fa-star fa-2x"></i></div>
+                        <div class="p-3 bg-light-green text-olive rounded-2 me-3">
+                            <i class="fa-solid fa-star fa-2x"></i>
+                        </div>
                         <div>
-                            <h6 class="text-muted mb-1">Rating Terakhir Anda</h6>
-                            <h3 class="fw-bold mb-0">- / 5</h3>
+                            <h6 class="text-muted mb-1 small ui-label-caps">Rating Anda</h6>
+                            <h3 class="fw-bold text-dark mb-0">- / 5</h3>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card border-0 shadow-sm p-4">
-            <h5 class="fw-bold mb-3"><i class="fa-solid fa-handshake-angle me-2 text-primary"></i>Butuh Pembersihan Cepat?</h5>
-            <p class="text-muted">Pilih paket layanan terbaik dari kami yang disesuaikan dengan kebutuhan ruangan Anda.</p>
-            <a href="/user/layanan" class="btn btn-primary px-4 py-2 rounded-pill w-25">Lihat Semua Layanan</a>
+        <!-- Blok Promosi & Aksi Cepat (Bukan 3-Kolom, Menggunakan Spanning Luas) -->
+        <div class="custom-card card-blue p-4 text-start position-relative overflow-hidden">
+            <!-- Pola Dekoratif Minimalis di Latar Belakang -->
+            <div class="position-absolute end-0 bottom-0 opacity-10 d-none d-sm-block p-3">
+                <i class="fa-solid fa-border-all fa-8x text-cobalt"></i>
+            </div>
+            
+            <div class="position-relative">
+                <h5 class="fw-bold mb-2 text-cobalt">
+                    <i class="fa-solid fa-handshake-angle me-2 text-olive"></i>Butuh Pembersihan Cepat?
+                </h5>
+                <p class="text-muted body-text mb-4" style="max-width: 60ch;">
+                    Pilih paket layanan terbaik dari kami yang disesuaikan secara khusus dengan kebutuhan ruangan tempat tinggal atau kantor Anda.
+                </p>
+                <a href="/user/layanan" class="btn btn-primary-custom px-4 py-2">
+                    Lihat Semua Layanan <i class="fa-solid fa-arrow-right ms-2 fs-7"></i>
+                </a>
+            </div>
         </div>
-    </div>
+
+    </main>
 </div>
 
 <%- include('../partials/footer') %>

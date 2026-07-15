@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 // PANGGIL MIDDELWARE SATPAM (Untuk rute dashboard utama di bawah)
 const { isLoggedIn, isUser, isSuperAdmin, isAdmin } = require('./middleware/authMiddleware');
 
-// ROUTE DASHBOARD MANUAL (Harus ditaruh SEBELUM app.use router ber-prefix agar tidak terjebak middleware)
+// ROUTE DASHBOARD MANUAL
 app.get('/user/dashboard', isLoggedIn, isUser, (req, res) => {
     res.render('user/dashboard', { user: req.session.user });
 });
@@ -47,16 +47,15 @@ app.get('/superadmin/dashboard', isLoggedIn, isSuperAdmin, (req, res) => {
     res.render('superadmin/dashboard', { user: req.session.user });
 });
 
-// app.get('/admin/dashboard', isLoggedIn, isAdmin, (req, res) => {
-//    res.redirect('/admin/dashboard'); 
-// });
+// FIX: Buka comment rute dashboard admin ini agar admin memiliki halaman dashboard fisik saat diarahkan dari controller
+app.get('/admin/dashboard', isLoggedIn, isAdmin, adminRoutes); 
 
 
-// GUNAKAN ROUTER DENGAN PREFIX (AWALAN URL) AGAR TIDAK SALING TABRAKAN
-app.use('/', authRoutes);
-app.use('/superadmin', superRoutes); // Sekarang semua isi superRoutes otomatis diawali /superadmin
-app.use('/user', userRoutes);         // Sekarang semua isi userRoutes otomatis diawali /user
+// GUNAKAN ROUTER DENGAN PREFIX (Urutan diprioritaskan dari yang spesifik baru ke root '/')
+app.use('/superadmin', superRoutes); 
+app.use('/user', userRoutes);         
 app.use('/admin', adminRoutes);
+app.use('/', authRoutes); // FIX: Dipindahkan ke paling bawah agar tidak memotong rute spesifik di atasnya
 
 // Jalankan Server
 app.listen(PORT, () => {

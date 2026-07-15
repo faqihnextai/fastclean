@@ -1,59 +1,67 @@
 <%- include('../partials/header') %>
-<div class="d-flex">
-    <div class="bg-dark text-white border-end" style="min-width: 250px; min-height: 100vh;">
-        <div class="sidebar-heading text-center py-4 text-warning fs-4 fw-bold">Super Admin</div>
-        <div class="list-group list-group-flush">
-            <a href="/superadmin/dashboard" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fa-solid fa-chart-line me-2"></i> Statistik Utama</a>
-            <a href="/superadmin/layanan-crud" class="list-group-item list-group-item-action bg-secondary text-white border-0"><i class="fa-solid fa-layer-group me-2"></i> Kelola Layanan</a>
-            <a href="/superadmin/admin-crud" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fa-solid fa-users-gear me-2"></i> Input Data Admin</a>
-            <a href="/logout" class="list-group-item list-group-item-action bg-dark text-danger border-0"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
-        </div>
-    </div>
 
-    <div class="container-fluid p-4 bg-light">
-        <h4 class="fw-bold mb-4">Kelola Jenis Layanan Kebersihan</h4>
+<div class="container-fluid p-0 d-flex flex-column flex-lg-row custom-dashboard-wrapper">
+    <%- include('../partials/sidebarSuperAdmin') %>
+
+    <main class="flex-grow-1 p-3 p-md-4 main-panel-content">
+        <h4 class="fw-bold text-dark mb-4">Kelola Jenis Layanan Kebersihan</h4>
         
-        <div class="card border-0 shadow-sm p-4 mb-4">
-            <h5 class="fw-bold text-primary mb-3">Tambah Layanan Baru</h5>
-            <form action="/superadmin/layanan/create" method="POST">
+        <!-- Form Pendaftaran Layanan Baru -->
+        <div class="card border-0 shadow-sm p-3 p-md-4 custom-card card-blue mb-4">
+            <h5 class="fw-bold text-cobalt mb-1">Tambah Layanan Baru</h5>
+            <div class="ornamental-divider my-2 ms-0"></div>
+            
+            <form action="/superadmin/layanan/create" method="POST" class="mt-3">
                 <div class="row g-3">
                     <div class="col-md-4">
-                        <input type="text" name="nama_layanan" class="form-control" placeholder="Nama Layanan (misal: Deep Cleaning)" required>
+                        <label class="form-label ui-label-caps mb-1">Nama Layanan</label>
+                        <div class="input-group custom-input-group">
+                            <input type="text" name="nama_layanan" class="form-control" placeholder="misal: Deep Cleaning" required>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <input type="number" name="harga" class="form-control" placeholder="Harga (Rupiah)" required>
+                        <label class="form-label ui-label-caps mb-1">Harga (Rupiah)</label>
+                        <div class="input-group custom-input-group">
+                            <input type="number" name="harga" class="form-control" placeholder="Harga Angka" required>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <input type="text" name="deskripsi" class="form-control" placeholder="Deskripsi Singkat Layanan" required>
+                        <label class="form-label ui-label-caps mb-1">Deskripsi Singkat</label>
+                        <div class="input-group custom-input-group">
+                            <input type="text" name="deskripsi" class="form-control" placeholder="Penjelasan paket" required>
+                        </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3 px-4 rounded-pill">Simpan Layanan</button>
+                <button type="submit" class="btn btn-primary-custom mt-3 fw-bold">Simpan Layanan</button>
             </form>
         </div>
 
-        <div class="card border-0 shadow-sm p-4">
-            <h5 class="fw-bold text-secondary mb-3">Daftar Layanan Tersedia</h5>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Nama Layanan</th>
-                            <th>Deskripsi</th>
-                            <th>Harga</th>
-                            <th>Aksi</th>
+        <!-- Tabel Daftar Layanan -->
+        <div class="card border-0 shadow-sm p-3 p-md-4 custom-card card-green">
+            <h5 class="fw-bold text-olive mb-1">Daftar Layanan Tersedia</h5>
+            <div class="ornamental-divider my-2 ms-0"></div>
+            
+            <div class="table-responsive custom-responsive-table mt-2">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr class="table-light border-bottom">
+                            <th class="py-3 ui-label-caps text-cobalt">Nama Layanan</th>
+                            <th class="py-3 ui-label-caps text-cobalt">Deskripsi</th>
+                            <th class="py-3 ui-label-caps text-cobalt">Harga</th>
+                            <th class="py-3 ui-label-caps text-cobalt text-end">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% if(services.length === 0) { %>
-                            <tr><td colspan="4" class="text-center text-muted">Belum ada layanan. Silakan tambahkan di atas.</td></tr>
+                            <tr><td colspan="4" class="text-center text-muted py-4 small body-text">Belum ada paket layanan. Silakan tambahkan di atas.</td></tr>
                         <% } %>
                         <% services.forEach(service => { %>
-                            <tr>
-                                <td class="fw-bold"><%= service.nama_layanan %></td>
-                                <td><%= service.deskripsi %></td>
-                                <td>Rp <%= Number(service.harga).toLocaleString('id-ID') %></td>
-                                sizeof<td>
-                                    <a href="/superadmin/layanan/delete/<%= service.id %>" class="btn btn-sm btn-danger rounded-pill px-3" onclick="return confirm('Hapus layanan ini?')">Hapus</a>
+                            <tr class="border-bottom-0">
+                                <td class="fw-bold text-dark"><%= service.nama_layanan %></td>
+                                <td class="text-muted"><%= service.deskripsi %></td>
+                                class="fw-bold text-olive">Rp <%= Number(service.harga).toLocaleString('id-ID') %></td>
+                                <td class="text-end">
+                                    <a href="/superadmin/layanan/delete/<%= service.id %>" class="btn btn-secondary-custom py-1 px-3 btn-sm text-danger" onclick="return confirm('Hapus layanan ini?')">Hapus</a>
                                 </td>
                             </tr>
                         <% }) %>
@@ -61,6 +69,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </main>
 </div>
+
 <%- include('../partials/footer') %>

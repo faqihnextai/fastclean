@@ -1,9 +1,10 @@
 <%- include('partials/header') %>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+    <!-- Antarmuka Navigasi (Navbar) -->
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
         <div class="container">
-            <a class="navbar-brand fw-bold text-primary fs-3" href="#">
-                <i class="fa-solid fa-broom me-2"></i>FastClean
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fa-solid fa-broom me-2 text-olive"></i>FastClean
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -14,48 +15,138 @@
                     <li class="nav-item"><a class="nav-link mx-2" href="#layanan">Layanan</a></li>
                     <li class="nav-item"><a class="nav-link mx-2 me-4" href="#kontak">Kontak</a></li>
                     <li class="nav-item">
-                        <a href="/login" class="btn btn-outline-primary px-4 me-2 rounded-pill">Masuk</a>
+                        <a href="/login" class="btn btn-secondary-custom mx-1">Masuk</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/register" class="btn btn-primary px-4 rounded-pill text-white">Daftar</a>
+                        <a href="/register" class="btn btn-primary-custom mx-1">Daftar</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="hero-section text-center">
+    <!-- Hero Section (Split Screen Layout sesuai design.md) -->
+    <header class="hero-section">
         <div class="container">
-            <h1 class="display-4 fw-bold mb-3">Rumah Bersih Berkilau <br> Tanpa Repot</h1>
-            <p class="lead mb-4">Pesan layanan kebersihan profesional untuk rumah, apartemen, atau kantor Anda dalam hitungan menit.</p>
-            <a href="/login" class="btn btn-warning btn-lg px-5 fw-bold text-dark rounded-pill">Pesan Sekarang</a>
+            <div class="row align-items-center custom-zigzag-row">
+                <div class="col-md-6 content-column text-start">
+                    <h1 class="display-4 fw-bold mb-3">Rumah Bersih Berkilau <br> Tanpa Repot</h1>
+                    <p class="body-text text-muted mb-4">Pesan layanan kebersihan profesional untuk rumah, apartemen, atau kantor Anda dalam hitungan menit.</p>
+                    <a href="/login" class="btn btn-primary-custom btn-lg px-5">Pesan Sekarang</a>
+                </div>
+                <div class="col-md-6 visual-column text-center">
+                    <div class="tile-pattern-placeholder green-blue-tile">
+                        <i class="fa-solid fa-sparkles fa-4x text-olive"></i>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
-    <section id="tentang" class="py-5">
-        <div class="container text-center">
-            <h2 class="fw-bold mb-5">Mengapa Memilih FastClean?</h2>
-            <div class="row g-4">
+    <!-- Bagian Tentang Kami (Asymmetric Zig-Zag Layout) -->
+    <section id="tentang" class="custom-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold section-title">Mengapa Memilih FastClean?</h2>
+                <div class="ornamental-divider"></div>
+            </div>
+            
+            <!-- Baris 1 -->
+            <div class="row align-items-center mb-5 custom-zigzag-row">
+                <div class="col-md-6 content-column">
+                    <div class="mb-3"><i class="fa-solid fa-user-shield fa-3x text-olive"></i></div>
+                    <h3 class="fw-bold h3-title">Pekerja Terpercaya & Profesional</h3>
+                    <p class="body-text text-muted">Semua admin pembersih kami telah melalui seleksi ketat dan pelatihan profesional guna menjamin kenyamanan hunian Anda.</p>
+                </div>
+                <div class="col-md-6 visual-column text-center">
+                    <div class="tile-pattern-placeholder blue-tile"><i class="fa-solid fa-shield-cat fa-4x"></i></div>
+                </div>
+            </div>
+
+            <!-- Baris 2 (Dibalik) -->
+            <div class="row align-items-center mb-5 flex-md-row-reverse custom-zigzag-row">
+                <div class="col-md-6 content-column">
+                    <div class="mb-3"><i class="fa-solid fa-bolt fa-3x text-cobalt"></i></div>
+                    <h3 class="fw-bold h3-title">Cepat & Efisien</h3>
+                    <p class="body-text text-muted">Proses pemesanan sangat praktis, penjadwalan fleksibel, serta penugasan kru yang sigap dan tepat waktu.</p>
+                </div>
+                <div class="col-md-6 visual-column text-center">
+                    <div class="tile-pattern-placeholder green-tile"><i class="fa-solid fa-bolt-lightning fa-4x"></i></div>
+                </div>
+            </div>
+
+            <!-- Baris 3 -->
+            <div class="row align-items-center custom-zigzag-row">
+                <div class="col-md-6 content-column">
+                    <div class="mb-3"><i class="fa-solid fa-hand-holding-dollar fa-3x text-olive"></i></div>
+                    <h3 class="fw-bold h3-title">Harga Transparan</h3>
+                    <p class="body-text text-muted">Biaya layanan tertera jelas sejak awal pesanan tanpa ada biaya tambahan tersembunyi apa pun.</p>
+                </div>
+                <div class="col-md-6 visual-column text-center">
+                    <div class="tile-pattern-placeholder blue-tile"><i class="fa-solid fa-receipt fa-4x"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian Layanan (Asymmetric Grid) -->
+    <section id="layanan" class="custom-section bg-cream">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold section-title">Layanan Kebersihan</h2>
+                <div class="ornamental-divider"></div>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
                 <div class="col-md-4">
-                    <div class="card p-4 border-0 shadow-sm h-100">
-                        <div class="text-primary mb-3"><i class="fa-solid fa-user-shield fa-3x"></i></div>
-                        <h4 class="fw-bold">Pekerja Terpercaya</h4>
-                        <p class="text-muted">Semua admin pembersih kami telah melalui seleksi ketat dan pelatihan profesional.</p>
+                    <div class="custom-card card-green p-4 h-100">
+                        <h4 class="fw-bold mb-3 text-olive">Home Cleaning</h4>
+                        <p class="body-text text-muted">Perawatan kebersihan harian menyeluruh untuk area kamar, ruang tamu, dapur, dan sanitasi kamar mandi.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card p-4 border-0 shadow-sm h-100">
-                        <div class="text-primary mb-3"><i class="fa-solid fa-bolt fa-3x"></i></div>
-                        <h4 class="fw-bold">Cepat & Efisien</h4>
-                        <p class="text-muted">Proses pemesanan mudah, penjadwalan fleksibel, dan pengerjaan tepat waktu.</p>
+                    <div class="custom-card card-blue p-4 h-100">
+                        <h4 class="fw-bold mb-3 text-cobalt">Office Cleaning</h4>
+                        <p class="body-text text-muted">Pembersihan berkala untuk area perkantoran demi menjaga kenyamanan bekerja tim perusahaan Anda.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card p-4 border-0 shadow-sm h-100">
-                        <div class="text-primary mb-3"><i class="fa-solid fa-hand-holding-dollar fa-3x"></i></div>
-                        <h4 class="fw-bold">Harga Transparan</h4>
-                        <p class="text-muted">Biaya layanan jelas di awal tanpa ada biaya tambahan yang tersembunyi.</p>
+                    <div class="custom-card card-green p-4 h-100">
+                        <h4 class="fw-bold mb-3 text-olive">Deep Cleaning</h4>
+                        <p class="body-text text-muted">Layanan sterilisasi mendalam pasca renovasi gedung, pindahan rumah, maupun pasca-acara besar.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian Kontak -->
+    <section id="kontak" class="custom-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold section-title">Hubungi Kontak Kami</h2>
+                <div class="ornamental-divider"></div>
+                <p class="body-text text-muted">Butuh konsultasi atau jadwal khusus? Hubungi tim kami sekarang:</p>
+            </div>
+            
+            <div class="row justify-content-center g-4">
+                <div class="col-md-4 col-sm-6">
+                    <a href="https://wa.me/62895411881772" target="_blank" class="contact-box-link">
+                        <div class="custom-card card-green p-4 text-center h-100">
+                            <i class="fa-brands fa-whatsapp fa-3x mb-3 text-olive"></i>
+                            <h5 class="fw-bold text-dark">WhatsApp</h5>
+                            <p class="body-text text-muted mb-0 fw-bold">0895411881772</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <a href="https://instagram.com/fastclean" target="_blank" class="contact-box-link">
+                        <div class="custom-card card-blue p-4 text-center h-100">
+                            <i class="fa-brands fa-instagram fa-3x mb-3 text-cobalt"></i>
+                            <h5 class="fw-bold text-dark">Instagram</h5>
+                            <p class="body-text text-muted mb-0 fw-bold">@fastclean</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

@@ -1,0 +1,7 @@
+# CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/ters4795/public_html/fastclean.terasolus.store"
+PassengerBaseURI "/"
+PassengerNodejs "/home/ters4795/nodevenv/public_html/fastclean.terasolus.store/18/bin/node"
+PassengerAppType node
+PassengerStartupFile app.js
+# CLOUDLINUX PASSENGER CONFIGURATION END

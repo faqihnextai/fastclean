@@ -1,0 +1,205 @@
+/* ==========================================================================
+   TEMA VISUAL: Azulejo Português - FastClean Kustom
+   ========================================================================== */
+
+:root {
+  /* Definisikan Palet Warna Sistem Desain */
+  --cobalt-blue: #003399;
+  --tile-white: #F5F5F0;
+  --warm-gold: #C9A84C;
+  --deep-navy: #1A1A4E;
+  --terracotta: #B7472A;
+  --cream: #FFFFF0;
+}
+
+/* Tipografi Dasar */
+body {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--deep-navy);
+  background-color: var(--tile-white);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--deep-navy);
+}
+
+.text-cobalt {
+  color: var(--cobalt-blue);
+}
+
+.bg-cream {
+  background-color: var(--cream);
+}
+
+.body-md {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 72ch; /* Batas maksimum karakter per baris agar nyaman dibaca */
+}
+
+/* Jarak Struktural Konten Halaman (Layout) */
+.custom-section {
+  padding-top: clamp(4rem, 8vw, 8rem);
+  padding-bottom: clamp(4rem, 8vw, 8rem);
+}
+
+.section-title {
+  font-size: 1.5rem;
+}
+
+.h3-title {
+  font-size: 1.25rem;
+}
+
+/* Pembatas Hiasan Tradisional (Ornamental Divider) */
+.ornamental-divider {
+  width: 80px;
+  height: 4px;
+  background-color: var(--warm-gold);
+  margin: 1.2rem auto;
+  position: relative;
+  border-radius: 2px;
+}
+
+/* Navigasi Kustom (Navbar) */
+.custom-navbar {
+  background-color: var(--tile-white);
+  border-bottom: 2px solid var(--warm-gold);
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(26, 26, 78, 0.05);
+}
+
+.custom-navbar .navbar-brand {
+  font-size: 1.5rem;
+  color: var(--cobalt-blue) !important;
+}
+
+.custom-navbar .nav-link {
+  color: var(--deep-navy);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 200ms ease-out;
+}
+
+.custom-navbar .nav-link:hover {
+  color: var(--cobalt-blue);
+}
+
+/* Tombol Aksi Kustom (Buttons) */
+.btn-primary-custom {
+  background-color: var(--cobalt-blue);
+  color: var(--tile-white) !important;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 200ms ease-out;
+}
+
+.btn-primary-custom:hover {
+  background-color: #002673; /* Efek meredup 8% */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 51, 153, 0.2);
+}
+
+.btn-primary-custom:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary-custom {
+  background-color: transparent;
+  color: var(--cobalt-blue) !important;
+  border: 1.5px solid var(--cobalt-blue);
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 200ms ease-out;
+}
+
+.btn-secondary-custom:hover {
+  background-color: rgba(0, 51, 153, 0.05);
+}
+
+/* Area Hero Kustom */
+.hero-section {
+  padding: 160px 0 100px 0;
+  background-color: var(--cream);
+  border-bottom: 1px solid rgba(26, 26, 78, 0.1);
+}
+
+.hero-section h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--cobalt-blue);
+}
+
+/* Ornamen Ubin Utama Hero (Dekoratif) */
+.tile-pattern-hero {
+  display: inline-block;
+  background-color: var(--tile-white);
+  color: var(--cobalt-blue);
+  padding: 80px;
+  border: 6px double var(--warm-gold);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 51, 153, 0.1);
+}
+
+/* Komponen Kartu (Cards) */
+.custom-card {
+  background-color: var(--tile-white);
+  border: 1px solid rgba(26, 26, 78, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: all 200ms ease-out;
+}
+
+.custom-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 51, 153, 0.15);
+}
+
+/* Pola Ubin Mini untuk Kolom Asimetris Fitur Tentang */
+.tile-pattern-placeholder {
+  display: inline-block;
+  background-color: var(--cobalt-blue);
+  color: var(--warm-gold);
+  padding: 40px 60px;
+  border: 4px double var(--warm-gold);
+  border-radius: 8px;
+  opacity: 0.95;
+}
+
+/* Bungkus Navigasi Tautan Kontak */
+.contact-box-link {
+  text-decoration: none;
+  display: block;
+}
+
+.contact-box-link:hover h5 {
+  color: var(--cobalt-blue) !important;
+}
+
+/* Penyelarasan Kaki Halaman (Footer) */
+.custom-footer {
+  background-color: var(--deep-navy);
+  border-top: 2px solid var(--warm-gold);
+}
+
+/* Sistem Responsivitas di Bawah Layar Tablet */
+@media (max-width: 768px) {
+  .custom-zigzag-row {
+    margin-bottom: 3.5rem !important;
+    text-center: center;
+  }
+  .visual-column {
+    margin-top: 1.5rem;
+  }
+}

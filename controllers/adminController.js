@@ -47,15 +47,16 @@ module.exports = {
         }
     },
 
-    // Aksi ketika pekerja mengambil orderan pending
+    // Aksi ketika pekerja mengambil orderan pending + Upload Foto Before
     takeOrder: async (req, res) => {
         const { order_id } = req.params;
         const admin_id = req.session.user.id;
+        const foto_before = req.file ? req.file.filename : null;
+
         try {
-            // Ubah status jadi 'proses' dan pasang admin_id pekerja ini
             await db.query(
-                'UPDATE orders SET admin_id = ?, status = "proses" WHERE id = ? AND status = "pending"',
-                [admin_id, order_id]
+                'UPDATE orders SET admin_id = ?, status = "proses", foto_before = ? WHERE id = ? AND status = "pending"',
+                [admin_id, foto_before, order_id]
             );
             res.redirect('/admin/dashboard');
         } catch (error) {
@@ -64,15 +65,17 @@ module.exports = {
         }
     },
 
-    // Aksi ketika pekerja menyelesaikan tugas pembersihan
+    // Aksi ketika pekerja menyelesaikan tugas + Upload Foto After
     completeOrder: async (req, res) => {
         const { order_id } = req.params;
         const admin_id = req.session.user.id;
+        const foto_after = req.file ? req.file.filename : null;
+
         try {
-            // Pastikan hanya admin yang memproses yang bisa menyelesaikan
+            // FIX: Urutan parameter disesuaikan dengan urutan tanda tanya (?) di SQL
             await db.query(
-                'UPDATE orders SET status = "selesai" WHERE id = ? AND admin_id = ? AND status = "proses"',
-                [order_id, admin_id]
+                'UPDATE orders SET status = "selesai", foto_after = ? WHERE id = ? AND admin_id = ? AND status = "proses"',
+                [foto_after, order_id, admin_id]
             );
             res.redirect('/admin/riwayat');
         } catch (error) {

@@ -1,5 +1,5 @@
 const db = require('../config/db');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs'); // DIUBAH: Menggunakan bcryptjs agar lancar di hosting
 
 module.exports = {
     // --- MANAJEMEN LAYANAN (CRUD) ---
@@ -66,6 +66,7 @@ module.exports = {
             if (existingAdmin.length > 0) {
                 return res.send('Email admin tersebut sudah terdaftar!');
             }
+            // Tetap menggunakan variabel bcrypt karena di atas namanya sudah disamakan
             const hashedPassword = await bcrypt.hash(password, 10);
             await db.query('INSERT INTO admins (nama, email, password) VALUES (?, ?, ?)', 
                 [nama, email, hashedPassword]);

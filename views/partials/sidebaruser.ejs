@@ -1,10 +1,34 @@
-<div class="bg-light border-end" id="sidebar-wrapper" style="min-width: 250px; min-height: 100vh;">
-    <div class="sidebar-heading text-center py-4 text-primary fs-4 fw-bold">Menu Pelanggan</div>
-    <div class="list-group list-group-flush">
-        <a href="/user/dashboard" class="list-group-item list-group-item-action bg-light"><i class="fa-solid fa-gauge me-2"></i> Dashboard</a>
-        <a href="/user/layanan" class="list-group-item list-group-item-action bg-light"><i class="fa-solid fa-broom me-2"></i> Layanan</a>
-        <a href="/user/proses" class="list-group-item list-group-item-action bg-light"><i class="fa-solid fa-spinner me-2"></i> Proses Layanan</a>
-        <a href="/user/history" class="list-group-item list-group-item-action bg-light"><i class="fa-solid fa-clock-rotate-left me-2"></i> Riwayat Pembelian</a>
-        <a href="/logout" class="list-group-item list-group-item-action bg-light text-danger"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
+<!-- Tombol Toggle Hamburger (Hanya Muncul di Layar HP/Tablet < 992px) -->
+<div class="d-lg-none p-3 bg-white border-bottom w-100 d-flex justify-content-between align-items-center fixed-top shadow-sm custom-mobile-nav">
+    <a class="fw-bold text-cobalt text-decoration-none fs-4" href="#">
+        <i class="fa-solid fa-broom me-2 text-olive"></i>FastClean
+    </a>
+    <button class="btn btn-outline-primary border-2 toggle-hamburger-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar-wrapper" aria-controls="sidebar-wrapper">
+        <i class="fa-solid fa-bars-staggered"></i>
+    </button>
+</div>
+
+<!-- Container Sidebar (Menggunakan Responsive Offcanvas lg) -->
+<div class="offcanvas-lg offcanvas-start bg-light border-end custom-sidebar-container" tabindex="-1" id="sidebar-wrapper" aria-labelledby="sidebar-wrapper-label">
+    <div class="offcanvas-header border-bottom d-lg-none bg-white">
+        <h5 class="offcanvas-title fw-bold text-cobalt" id="sidebar-wrapper-label">
+            <i class="fa-solid fa-broom me-2 text-olive"></i>Menu Navigasi
+        </h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" data-bs-target="#sidebar-wrapper" aria-label="Close"></button>
+    </div>
+    
+    <div class="sidebar-sticky-content">
+        <div class="sidebar-heading text-center py-4 text-cobalt fs-4 fw-bold border-bottom d-none d-lg-block">
+            <i class="fa-solid fa-broom me-2 text-olive"></i>Menu Pelanggan
+        </div>
+        
+        <div class="list-group list-group-flush p-2">
+            <a href="/user/dashboard" class="list-group-item list-group-item-action my-1 rounded-2"><i class="fa-solid fa-gauge me-2"></i> Dashboard</a>
+            <a href="/user/layanan" class="list-group-item list-group-item-action my-1 rounded-2"><i class="fa-solid fa-broom me-2"></i> Layanan</a>
+            <a href="/user/proses" class="list-group-item list-group-item-action my-1 rounded-2"><i class="fa-solid fa-spinner me-2"></i> Proses Layanan</a>
+            <a href="/user/history" class="list-group-item list-group-item-action my-1 rounded-2"><i class="fa-solid fa-clock-rotate-left me-2"></i> Riwayat Pembelian</a>
+            <hr class="my-2 opacity-25">
+            <a href="/logout" class="list-group-item list-group-item-action my-1 rounded-2 text-danger fw-semibold"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
+        </div>
     </div>
 </div>

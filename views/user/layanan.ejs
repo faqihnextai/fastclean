@@ -1,58 +1,142 @@
 <%- include('../partials/header') %>
-<div class="d-flex">
+
+<div class="container-fluid p-0 d-flex flex-column flex-lg-row custom-dashboard-wrapper">
     <%- include('../partials/sidebarUser') %>
 
-    <div class="container-fluid p-4 bg-light">
-        <h4 class="fw-bold mb-1">Pilih Layanan Bersih-Bersih</h4>
-        <p class="text-muted small mb-4">Tentukan jenis perawatan kebersihan sesuai kebutuhan tempat tinggal Anda.</p>
+    <main class="flex-grow-1 p-3 p-md-4 main-panel-content">
+        
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 pb-2 border-bottom gap-2">
+            <div>
+                <h4 class="fw-bold text-dark mb-1">Sistem Pemesanan Layanan</h4>
+                <p class="text-muted small mb-0 body-text">Tambahkan beberapa layanan ke keranjang terlebih dahulu sebelum melakukan pembayaran checkout.</p>
+            </div>
+        </div>
 
         <div class="row g-4">
-            <% if (services.length === 0) { %>
-                <div class="col-12 text-center py-5 text-muted">Belum ada layanan yang tersedia saat ini.</div>
-            <% } %>
-            <% services.forEach(service => { %>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100 p-3">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold text-primary mb-2"><%= service.nama_layanan %></h5>
-                            <p class="card-text text-muted small flex-grow-1"><%= service.deskripsi %></p>
-                            <h4 class="fw-bold text-dark mt-3 mb-4">Rp <%= Number(service.harga).toLocaleString('id-ID') %></h4>
-                            
-                            <button class="btn btn-primary w-100 rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#bookingModal<%= service.id %>">Pesan Sekarang</button>
+            <div class="col-xl-8 col-lg-7">
+                <h5 class="fw-bold text-cobalt mb-3"><i class="fa-solid fa-store me-2 text-olive"></i>Katalog Pilihan Layanan</h5>
+                <div class="row g-3">
+                    <% if (services.length === 0) { %>
+                        <div class="col-12 text-center py-5 text-muted body-text">
+                            <i class="fa-solid fa-folder-open fa-2x mb-2 d-block text-cobalt"></i>
+                            Belum ada paket layanan kebersihan yang tersedia saat ini.
                         </div>
-                    </div>
-                </div>
-
-                <div class="modal fade" id="bookingModal<%= service.id %>" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content border-0 shadow">
-                            <div class="modal-header bg-primary text-white">
-                                <h5 class="modal-title fw-bold">Konfirmasi Pemesanan</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-shadow="none" data-bs-dismiss="modal"></button>
-                            </div>
-                            <form action="/user/booking" method="POST">
-                                <div class="modal-body">
-                                    <p class="mb-1 text-muted small">Layanan Terpilih:</p>
-                                    <h5 class="fw-bold text-dark"><%= service.nama_layanan %></h5>
-                                    <hr>
-                                    <input type="hidden" name="service_id" value="<%= service.id %>">
-                                    <input type="hidden" name="total_harga" value="<%= service.harga %>">
+                    <% } %>
+                    
+                    <% services.forEach((service, index) => { %>
+                        <div class="col-md-6 col-12">
+                            <div class="custom-card <%= index % 2 === 0 ? 'card-green' : 'card-blue' %> p-3 h-100 d-flex flex-column">
+                                <div class="card-body p-1 d-flex flex-column flex-grow-1">
+                                    <h6 class="fw-bold mb-1 <%= index % 2 === 0 ? 'text-olive' : 'text-cobalt' %>"><%= service.nama_layanan %></h6>
+                                    <p class="text-muted small flex-grow-1 body-text mb-2"><%= service.deskripsi %></p>
                                     
                                     <div class="mb-3">
-                                        <label class="form-label fw-semibold">Pilih Tanggal Pengerjaan</label>
-                                        <input type="date" name="tanggal_booking" class="form-control" required min="<%= new Date().toISOString().split('T')[0] %>">
+                                        <h5 class="fw-bold text-dark m-0">Rp <%= Number(service.harga).toLocaleString('id-ID') %></h5>
                                     </div>
+                                    
+                                    <form action="/user/cart/add" method="POST" class="mt-auto">
+                                        <input type="hidden" name="service_id" value="<%= service.id %>">
+                                        <button type="submit" class="btn <%= index % 2 === 0 ? 'btn-success-custom' : 'btn-primary-custom' %> w-100 fw-bold btn-sm py-2">
+                                            <i class="fa-solid fa-cart-plus me-1"></i> Masukkan Keranjang
+                                        </button>
+                                    </form>
                                 </div>
-                                <div class="modal-footer bg-light">
-                                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary rounded-pill px-4 text-white fw-bold">Konfirmasi Pembelian</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                    <% }) %>
                 </div>
-            <% }) %>
+            </div>
+
+            <div class="col-xl-4 col-lg-5">
+                <div class="custom-card card-blue p-3 bg-white shadow-sm position-sticky" style="top: 90px;">
+                    <h5 class="fw-bold text-cobalt border-bottom pb-2 mb-3">
+                        <i class="fa-solid fa-basket-shopping me-2 text-olive"></i>Keranjang Saya (<%= cart.length %>)
+                    </h5>
+
+                    <div class="cart-items-wrapper mb-3" style="max-height: 200px; overflow-y: auto;">
+                        <% if (cart.length === 0) { %>
+                            <p class="text-muted text-center py-3 small body-text m-0">Keranjang masih kosong.</p>
+                        <% } else { %>
+                            <ul class="list-group list-group-flush">
+                                <% cart.forEach(item => { %>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2 border-bottom-0">
+                                        <div>
+                                            <span class="fw-semibold d-block small text-dark"><%= item.nama_layanan %></span>
+                                            <span class="text-olive small fw-bold">Rp <%= Number(item.harga).toLocaleString('id-ID') %></span>
+                                        </div>
+                                        <a href="/user/cart/remove/<%= item.id %>" class="btn btn-link text-danger p-0 border-0 shadow-none"><i class="fa-solid fa-trash-can"></i></a>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        <% } %>
+                    </div>
+
+                    <% if (cart.length > 0) { %>
+                        <form action="/user/booking" method="POST" class="border-top pt-3">
+                            
+                            <div class="mb-2">
+                                <label class="form-label ui-label-caps mb-1">Nama Pemesan</label>
+                                <div class="input-group custom-input-group bg-light">
+                                    <span class="input-group-text bg-transparent"><i class="fa-solid fa-user text-muted"></i></span>
+                                    <input type="text" class="form-control bg-transparent" value="<%= user.nama %>" readonly disabled>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="form-label ui-label-caps mb-1">Pilih Gedung Area</label>
+                                <div class="input-group custom-input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-building text-muted"></i></span>
+                                    <select name="gedung" class="form-control" required style="-webkit-appearance: none; -moz-appearance: none; appearance: none; background: transparent;">
+                                        <option value="" disabled selected>-- Pilih Gedung (A - E) --</option>
+                                        <option value="Gedung A">Gedung A</option>
+                                        <option value="Gedung B">Gedung B</option>
+                                        <option value="Gedung C">Gedung C</option>
+                                        <option value="Gedung D">Gedung D</option>
+                                        <option value="Gedung E">Gedung E</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="form-label ui-label-caps mb-1">Tanggal Pengerjaan</label>
+                                <div class="input-group custom-input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-calendar-day text-muted"></i></span>
+                                    <input type="date" name="tanggal_booking" class="form-control" required min="<%= new Date().toISOString().split('T')[0] %>">
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="form-label ui-label-caps mb-1">Alamat Tujuan Pengiriman</label>
+                                <textarea name="alamat" class="form-control small body-text p-2" rows="2" style="border: 1px solid rgba(26, 26, 78, 0.15); border-radius: 8px; font-size: 0.85rem;" required><%= defaultAddress %></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label ui-label-caps mb-1">Metode Pembayaran</label>
+                                <div class="input-group custom-input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-credit-card text-muted"></i></span>
+                                    <select name="metode_pembayaran" class="form-control" required style="background: transparent;">
+                                        <option value="" disabled selected>-- Pilih Metode --</option>
+                                        <option value="QRIS">QRIS Otomatis (Gopay/OVO)</option>
+                                        <option value="E-Money">E-Money Dana/LinkAja</option>
+                                        <option value="Transfer Bank">Transfer Virtual Account Bank</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center bg-cream p-2 rounded-2 border mb-3">
+                                <span class="ui-label-caps text-muted m-0">Total Pembayaran</span>
+                                <h5 class="fw-bold text-dark m-0">Rp <%= Number(totalKeranjang).toLocaleString('id-ID') %></h5>
+                            </div>
+
+                            <button type="submit" class="btn btn-success-custom w-100 py-2 fw-bold text-white shadow-sm">
+                                <i class="fa-solid fa-money-bill-wave me-1"></i> Proses Pembayaran
+                            </button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
 </div>
+
 <%- include('../partials/footer') %>

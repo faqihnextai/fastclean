@@ -1,8 +1,32 @@
-<div class="bg-dark text-white border-end" id="sidebar-wrapper" style="min-width: 250px; min-height: 100vh;">
-    <div class="sidebar-heading text-center py-4 text-warning fs-4 fw-bold">Menu Admin/Pekerja</div>
-    <div class="list-group list-group-flush">
-        <a href="/admin/dashboard" class="list-group-item list-group-item-action bg-dark text-white"><i class="fa-solid fa-clipboard-list me-2"></i> Orderan Masuk</a>
-        <a href="/admin/riwayat" class="list-group-item list-group-item-action bg-dark text-white"><i class="fa-solid fa-check-double me-2"></i> Pekerjaan Selesai</a>
-        <a href="/logout" class="list-group-item list-group-item-action bg-dark text-danger"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
+<!-- Tombol Hamburger Mobile (Hanya muncul di HP / Layar < 992px) -->
+<div class="d-lg-none p-3 bg-white border-bottom w-100 d-flex justify-content-between align-items-center fixed-top shadow-sm custom-mobile-nav">
+    <a class="fw-bold text-cobalt text-decoration-none fs-4" href="#">
+        <i class="fa-solid fa-broom me-2 text-olive"></i>FastClean
+    </a>
+    <button class="btn btn-outline-primary border-2 toggle-hamburger-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar-admin-wrapper" aria-controls="sidebar-admin-wrapper">
+        <i class="fa-solid fa-bars-staggered"></i>
+    </button>
+</div>
+
+<!-- Container Sidebar Admin -->
+<div class="offcanvas-lg offcanvas-start bg-light border-end custom-sidebar-container" tabindex="-1" id="sidebar-admin-wrapper" aria-labelledby="sidebar-admin-label">
+    <div class="offcanvas-header border-bottom d-lg-none bg-white">
+        <h5 class="offcanvas-title fw-bold text-cobalt" id="sidebar-admin-label">
+            <i class="fa-solid fa-broom me-2 text-olive"></i>Panel Admin
+        </h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" data-bs-target="#sidebar-admin-wrapper" aria-label="Close"></button>
+    </div>
+    
+    <div class="sidebar-sticky-content">
+        <div class="sidebar-heading text-center py-4 text-cobalt fs-4 fw-bold border-bottom d-none d-lg-block">
+            <i class="fa-solid fa-broom me-2 text-olive"></i>Menu Admin/Pekerja
+        </div>
+        
+        <div class="list-group list-group-flush p-2">
+            <a href="/admin/dashboard" class="list-group-item list-group-item-action my-1 rounded-2"><i class="fa-solid fa-clipboard-list me-2"></i> Orderan Masuk</a>
+            <a href="/admin/riwayat" class="list-group-item list-group-item-action my-1 rounded-2"><i class="fa-solid fa-check-double me-2"></i> Pekerjaan Selesai</a>
+            <hr class="my-2 opacity-25">
+            <a href="/logout" class="list-group-item list-group-item-action my-1 rounded-2 text-danger fw-semibold"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
+        </div>
     </div>
 </div>
